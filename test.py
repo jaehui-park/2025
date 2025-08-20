@@ -314,7 +314,7 @@ elif st.session_state.game_state == 'stage1':
                 st.session_state.last_choice_id = choice['id']
                 st.session_state.game_state = 'stage2'
                 st.session_state.current_stage = 2
-                st.experimental_rerun()
+                st.rerun()
 
 # --- 2단계 게임 진행 ---
 elif st.session_state.game_state == 'stage2':
