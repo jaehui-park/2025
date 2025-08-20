@@ -1,10 +1,10 @@
 import streamlit as st
 import random
-import time # 결과를 단계적으로 보여주기 위해
+import time
 
 st.set_page_config(layout="wide", page_title="🔥 파이어 파이터 PR: 기업을 구하라! 🔥", initial_sidebar_state="collapsed")
 
-# --- CSS로 디자인 및 애니메이션 강화 ---
+# --- CSS로 디자인 및 애니메이션 강화 (이전 코드와 동일) ---
 st.markdown("""
 <style>
 /* 전체 배경색 */
@@ -148,7 +148,7 @@ if 'game_state' not in st.session_state:
     st.session_state.accumulated_effects = {'stock_multiplier': 1.0, 'news_headlines': [], 'consumer_sentiment': []}
     st.session_state.last_choice_id = None # 이전 선택의 ID를 저장
 
-# --- 게임 데이터 정의 ---
+# --- 게임 데이터 정의 (이전 코드와 동일) ---
 game_data = {
     "stage1": {
         "title": "🔥 위기 상황 발생: '국민 스낵' 이물질 논란! 🔥",
@@ -285,12 +285,20 @@ game_data = {
 if st.session_state.game_state == 'start':
     st.markdown("<h1 class='main-title'>🔥 파이어 파이터 PR: 기업을 구하라! 🔥</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>위기 상황 속에서 당신의 PR 능력을 시험해보세요!</p>", unsafe_allow_html=True)
-    st.image("https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", caption="사진: Fikri Rasyid", use_column_width=True) # 위기 상황을 암시하는 이미지 (예시)
+    
+    # --- 귀여운 이미지 URL로 변경 ---
+    # 출처: Freepik (저작권이 명시되지 않아 안전한 Pexels 무료 이미지로 변경했습니다.)
+    # https://www.pexels.com/ko-kr/search/cute%20cartoon/ (귀여운 카툰 검색)
+    # 선택된 이미지: 귀여운 아기 새 캐릭터
+    st.image("https://images.pexels.com/photos/17235085/pexels-photo-17235085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", 
+             caption="긴급상황! PR 팀장님 출동! 삐약삐약!", 
+             use_column_width=True) 
     st.write("")
     if st.button("🚨 게임 시작! PR 팀장이 되어 기업을 구하자! 🚨", use_container_width=True):
         st.session_state.game_state = 'stage1'
         st.session_state.current_stage = 1
         st.session_state.accumulated_effects = {'stock_multiplier': 1.0, 'news_headlines': [], 'consumer_sentiment': []}
+        st.session_state.last_choice_id = None
         st.experimental_rerun()
 
 # --- 1단계 게임 진행 ---
@@ -305,7 +313,7 @@ elif st.session_state.game_state == 'stage1':
             if st.button(choice['text'], key=f"s1_choice_{i}", use_container_width=True):
                 st.session_state.accumulated_effects['stock_multiplier'] *= choice['effect_stock_multiplier']
                 st.session_state.accumulated_effects['news_headlines'].append(choice['effect_news'])
-                st.session_state.accumulated_effects['consumer_sentiment'].extend(random.sample(choice['effect_consumer'], min(2, len(choice['effect_consumer'])))) # 2개만 랜덤 샘플링
+                st.session_state.accumulated_effects['consumer_sentiment'].extend(random.sample(choice['effect_consumer'], min(2, len(choice['effect_consumer']))))
                 st.session_state.last_choice_id = choice['id']
                 st.session_state.game_state = 'stage2'
                 st.session_state.current_stage = 2
@@ -315,7 +323,6 @@ elif st.session_state.game_state == 'stage1':
 elif st.session_state.game_state == 'stage2':
     st.markdown(f"<p class='stage-indicator'>----- ✨ 2단계: 후속 조치와 여론 관리 ✨ -----</p>", unsafe_allow_html=True)
 
-    # 1단계 선택에 따라 2단계 시나리오 결정
     if st.session_state.last_choice_id == "s1_choice1_recall":
         current_scenario = game_data["stage2_after_recall"]
     elif st.session_state.last_choice_id == "s1_choice2_deny":
@@ -334,31 +341,30 @@ elif st.session_state.game_state == 'stage2':
             if st.button(choice['text'], key=f"s2_choice_{i}", use_container_width=True):
                 st.session_state.accumulated_effects['stock_multiplier'] *= choice['effect_stock_multiplier']
                 st.session_state.accumulated_effects['news_headlines'].append(choice['effect_news'])
-                st.session_state.accumulated_effects['consumer_sentiment'].extend(random.sample(choice['effect_consumer'], min(2, len(choice['effect_consumer'])))) # 2개만 랜덤 샘플링
+                st.session_state.accumulated_effects['consumer_sentiment'].extend(random.sample(choice['effect_consumer'], min(2, len(choice['effect_consumer']))))
                 st.session_state.final_message = choice['final_message']
                 st.session_state.game_state = 'result'
                 st.experimental_rerun()
 
 # --- 결과 화면 ---
 elif st.session_state.game_state == 'result':
-    initial_stock_price = 10000 # 가상의 초기 주가
+    initial_stock_price = 10000
     final_stock_price = initial_stock_price * st.session_state.accumulated_effects['stock_multiplier']
     
     st.markdown("<h1 class='result-header'>🎉 최종 결과: 당신의 선택이 기업의 운명을 바꿨다! 🎉</h1>", unsafe_allow_html=True)
     st.write("---")
 
-    # --- 긴장감 있는 결과 발표 ---
     st.markdown("<h2 class='result-section-title'>🚨 [속보] 지금 막 들어온 뉴스 헤드라인!</h2>", unsafe_allow_html=True)
     for news in st.session_state.accumulated_effects['news_headlines']:
         with st.spinner("언론사에서 기사를 송고하고 있습니다..."):
-            time.sleep(1.5) # 잠시 대기
+            time.sleep(1.5)
         st.markdown(f"<div class='news-box'>➡️ {news}</div>", unsafe_allow_html=True)
-        time.sleep(0.5) # 다음 기사 간 간격
+        time.sleep(0.5)
     st.write("")
 
     st.markdown("<h2 class='result-section-title'>📈 긴급 분석: '맛나요 식품' 주가 대변동?!</h2>", unsafe_allow_html=True)
     with st.spinner("증권가에서 급변하는 주가 정보를 분석 중입니다..."):
-        time.sleep(2) # 잠시 대기
+        time.sleep(2)
     stock_change_percent = (final_stock_price / initial_stock_price - 1) * 100
     stock_emoji = "📈" if stock_change_percent >= 0 else "📉"
     stock_color_class = "stock-up" if stock_change_percent >= 0 else "stock-down"
@@ -372,12 +378,12 @@ elif st.session_state.game_state == 'result':
     
     st.markdown("<h2 class='result-section-title'>🗣️ 핫이슈: SNS 소비자 반응 폭주!</h2>", unsafe_allow_html=True)
     with st.spinner("소셜 미디어 분석 시스템이 여론을 수집 중입니다..."):
-        time.sleep(2.5) # 잠시 대기
+        time.sleep(2.5)
     st.markdown(f"<div class='consumer-box'>", unsafe_allow_html=True)
-    random.shuffle(st.session_state.accumulated_effects['consumer_sentiment']) # 소비자 반응 순서 섞기
+    random.shuffle(st.session_state.accumulated_effects['consumer_sentiment'])
     for reaction in st.session_state.accumulated_effects['consumer_sentiment']:
         st.markdown(f"💬 {reaction}")
-        time.sleep(0.3) # 각 댓글 간 간격
+        time.sleep(0.3)
     st.markdown(f"</div>", unsafe_allow_html=True)
     st.write("")
 
