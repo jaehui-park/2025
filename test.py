@@ -296,7 +296,7 @@ if st.session_state.game_state == 'start':
         st.session_state.current_stage = 1
         st.session_state.accumulated_effects = {'stock_multiplier': 1.0, 'news_headlines': [], 'consumer_sentiment': []}
         st.session_state.last_choice_id = None
-        st.experimental_rerun()
+        st.rerun()
 
 # --- 1단계 게임 진행 ---
 elif st.session_state.game_state == 'stage1':
