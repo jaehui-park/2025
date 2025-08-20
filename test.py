@@ -4,7 +4,7 @@ import time
 
 st.set_page_config(layout="wide", page_title="🔥 파이어 파이터 PR: 기업을 구하라! 🔥", initial_sidebar_state="collapsed")
 
-# --- CSS로 디자인 및 애니메이션 강화 (이전 코드와 동일) ---
+# --- CSS로 디자인 및 애니메이션 강화 ---
 st.markdown("""
 <style>
 /* 전체 배경색 */
@@ -286,15 +286,12 @@ if st.session_state.game_state == 'start':
     st.markdown("<h1 class='main-title'>🔥 파이어 파이터 PR: 기업을 구하라! 🔥</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>위기 상황 속에서 당신의 PR 능력을 시험해보세요!</p>", unsafe_allow_html=True)
     
-    # --- 귀여운 이미지 URL로 변경 ---
-    # 출처: Freepik (저작권이 명시되지 않아 안전한 Pexels 무료 이미지로 변경했습니다.)
-    # https://www.pexels.com/ko-kr/search/cute%20cartoon/ (귀여운 카툰 검색)
-    # 선택된 이미지: 귀여운 아기 새 캐릭터
     st.image("https://images.pexels.com/photos/17235085/pexels-photo-17235085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", 
              caption="긴급상황! PR 팀장님 출동! 삐약삐약!", 
              use_column_width=True) 
     st.write("")
-    if st.button("🚨 게임 시작! PR 팀장이 되어 기업을 구하자! 🚨", use_container_width=True):
+    # 여기 '게임 시작' 버튼에 명시적인 key 추가
+    if st.button("🚨 게임 시작! PR 팀장이 되어 기업을 구하자! 🚨", use_container_width=True, key="start_game_button"): # <--- 수정된 부분
         st.session_state.game_state = 'stage1'
         st.session_state.current_stage = 1
         st.session_state.accumulated_effects = {'stock_multiplier': 1.0, 'news_headlines': [], 'consumer_sentiment': []}
@@ -392,7 +389,8 @@ elif st.session_state.game_state == 'result':
     st.markdown("---")
 
     st.write("")
-    if st.button("🔄 다시 플레이하기! 기업을 구하러 한 번 더! 🔄", use_container_width=True, key="restart_btn"):
+    # 여기 '다시 플레이하기' 버튼의 key를 명확히 하고, 조건 밖으로 빼도 무방
+    if st.button("🔄 다시 플레이하기! 기업을 구하러 한 번 더! 🔄", use_container_width=True, key="restart_game_button_final"): # <--- 수정된 부분 (key 변경)
         st.session_state.game_state = 'start'
         st.session_state.current_stage = 1
         st.session_state.accumulated_effects = {'stock_multiplier': 1.0, 'news_headlines': [], 'consumer_sentiment': []}
