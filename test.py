@@ -418,7 +418,7 @@ game_data = {
                 "text": "⏳ 선택 1: 장기적 신뢰 회복! 꾸준한 캠페인과 사회 공헌으로 진정성 증명!",
                 "effect_news": "🌱'맛나요 식품', 느리지만 꾸준하게 '재도전'! 소비자들과 소통하며 신뢰의 씨앗 심는다!",
                 "effect_stock_multiplier": 1.05, # 느리지만 상승 전환
-                "effect_consumer": ["🤔 진정성이 보이기 시작하네... 조금씩 지켜볼까.", "💬 시간은 걸리겠지만, 바뀐다면 응원할게.", "🙏 포기하지 않는 모습은 보기 좋다."],
+                "effect_consumer": ["🤔 진정성이 보이기 시작하네... 조금씩 지켜볼까.", "💬 시간은 걸리겠지만, 바뀐다면 응원할게.", "🙏 포기하지 않는 모습은 좋네."],
                 "final_message": "잃어버린 '골든 타임'의 대가는 컸지만, 당신의 끈기 있는 노력으로 서서히 신뢰를 회복하는 중입니다. 느리지만 확실한 길을 택했습니다. 미래를 기대해볼 수 있습니다. ✨"
             },
             {
@@ -468,10 +468,10 @@ if st.session_state.game_state == 'start':
     st.markdown("<h1 class='main-title'>🔥 파이어 파이터 PR: 기업을 구하라! (심화편) 🔥</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>위기 상황 속에서 당신의 PR 능력을 시험해보세요!</p>", unsafe_allow_html=True)
     
-    st.image("https://images.pexels.com/photos/17235085/pexels-photo-17235085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", 
-             caption="긴급상황! PR 팀장님 출동! 삐약삐약!", 
-             use_column_width=True) 
-    st.write("")
+    # st.image("https://images.pexels.com/photos/17235085/pexels-photo-17235085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", 
+    #          caption="긴급상황! PR 팀장님 출동! 삐약삐약!", 
+    #          use_column_width=True) # <<< 이 이미지 호출 부분을 삭제했습니다.
+    st.write("") # 이미지가 없어진 자리에 혹시 모를 간격 유지를 위해
     if st.button("🚨 게임 시작! PR 팀장이 되어 기업을 구하자! 🚨", use_container_width=True, key="start_game_button"):
         st.session_state.game_state = 'stage1'
         st.session_state.current_stage = 1
