@@ -341,7 +341,7 @@ elif st.session_state.game_state == 'stage2':
                 st.session_state.accumulated_effects['consumer_sentiment'].extend(random.sample(choice['effect_consumer'], min(2, len(choice['effect_consumer']))))
                 st.session_state.final_message = choice['final_message']
                 st.session_state.game_state = 'result'
-                st.experimental_rerun()
+                st.rerun()
 
 # --- 결과 화면 ---
 elif st.session_state.game_state == 'result':
