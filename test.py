@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import time # 결과를 단계적으로 보여주기 위해
 
-st.set_page_config(layout="wide", page_title="🔥 파이어 파이터 PR: 기업을 구하라! (심화편) 🔥", initial_sidebar_state="collapsed")
+st.set_page_config(layout="wide", page_title="🔥 파이어 파이터 PR: 기업을 구하라! 🔥", initial_sidebar_state="collapsed")
 
 # --- CSS로 디자인 및 애니메이션 강화 ---
 st.markdown("""
